@@ -3,6 +3,12 @@ require('dotenv').config();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+const headers = {
+	'Access-Control-Allow-Origin': '*',
+	'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+	'Access-Control-Allow-Headers': 'Content-Type',
+}
+
 const updateColors = async event => {
 	const body = JSON.parse(event.body);
 	const {
@@ -32,12 +38,14 @@ const updateColors = async event => {
 		);
 
 		return {
+			headers,
 			statusCode: 200,
 			body: "Colores actualizados correctamente.",
 		}
 	} catch (error) {
 		console.error(error.message);
 		return {
+			headers,
 			statusCode: 500,
 			body: "Error al actualizar los colores.",
 		}
@@ -53,6 +61,7 @@ exports.handler = async (event, context) => {
 				return await updateColors(event, context);
 			default:
 				return {
+					headers,
 					statusCode: 405,
 					body: 'Method Not Allowed',
 				};
@@ -60,6 +69,7 @@ exports.handler = async (event, context) => {
 
 	} catch {
 		return {
+			headers,
 			statusCode: 500,
 			body: 'Internal Server Error',
 		}
