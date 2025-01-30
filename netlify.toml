@@ -1,0 +1,6 @@
+[[headers]]
+  for = "/.netlify/functions/*"  # Aplica solo a las funciones
+  [headers.values]
+    Access-Control-Allow-Origin = "*"  # Permite todos los orígenes
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"  # Métodos permitidos
+    Access-Control-Allow-Headers = "Content-Type"  # Cabeceras permitidas
