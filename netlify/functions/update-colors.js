@@ -57,6 +57,12 @@ exports.handler = async (event, context) => {
 		const httpMethod = event.httpMethod;
 
 		switch (httpMethod) {
+			case 'OPTIONS':
+				return {
+					headers,
+					statusCode: 204,
+					body: '',
+				};
 			case 'POST':
 				return await updateColors(event, context);
 			default:
